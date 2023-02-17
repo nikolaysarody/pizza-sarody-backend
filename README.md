@@ -1,4 +1,4 @@
-API сервер для Pizza Sarody.
+NestJS API сервер для Pizza Sarody.
 
 База данных - MongoDB.
 
