@@ -1,5 +1,4 @@
-import {Body, Controller, Get} from '@nestjs/common';
-// import {PizzaModel} from "./pizza.model/pizza.model";
+import {Controller, Get} from '@nestjs/common';
 import {PizzaService} from "./pizza.service";
 import {Pizza} from "./schemas/pizza.schema";
 
