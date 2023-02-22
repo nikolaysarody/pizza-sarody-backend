@@ -10,13 +10,15 @@ import {ConfigModule} from "@nestjs/config";
 
 @Module({
     imports: [
-        ConfigModule.forRoot(),
+        ConfigModule.forRoot({
+            envFilePath: '.env'
+        }),
         MongooseModule.forRoot('mongodb://127.0.0.1:27017/pizza'),
         AuthModule,
         PizzaModule,
         ActionModule
     ],
-    controllers: [AppController, AuthController],
+    controllers: [AppController],
     providers: [AppService],
 })
 export class AppModule {

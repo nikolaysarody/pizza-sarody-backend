@@ -1,11 +1,13 @@
 import {Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
 import {Document} from "mongoose";
 
-
 export type PizzaDocument = Pizza & Document;
 
 @Schema()
 export class Pizza {
+    @Prop()
+    _id: string;
+
     @Prop()
     title: string;
 
@@ -14,9 +16,6 @@ export class Pizza {
 
     @Prop()
     img: string;
-
-    @Prop()
-    _id: string;
 
     @Prop()
     price: number;
