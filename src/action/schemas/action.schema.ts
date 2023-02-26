@@ -1,18 +1,27 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {Document} from 'mongoose';
 
-export type UserDocument = User & Document;
+export type ActionDocument = Action & Document;
 
 @Schema()
-export class User {
+export class Action {
     @Prop()
     _id: string;
 
     @Prop({unique: true, required: true})
-    email: string;
+    title: string;
 
     @Prop({required: true})
-    passwordHash: string;
+    description: string;
+
+    @Prop()
+    text?: string;
+
+    @Prop()
+    clickable: boolean;
+
+    @Prop()
+    img: string;
 
     @Prop()
     createdAt?: Date;
@@ -21,4 +30,4 @@ export class User {
     updatedAt?: Date;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+export const ActionSchema = SchemaFactory.createForClass(Action);
