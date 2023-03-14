@@ -1,5 +1,3 @@
-NestJS API сервер для Pizza Sarody.
+### NestJS API сервер для Pizza Sarody. База данных - MongoDB.
 
-База данных - MongoDB.
-
-Клиент - https://github.com/nikolaysarody/pizza-sarody
+Клиент - <https://github.com/nikolaysarody/pizza-sarody>
