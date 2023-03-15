@@ -9,7 +9,7 @@ export class AuthController {
     }
 
     @UsePipes(new ValidationPipe())
-    @Post('register')
+    @Post('registration')
     async register(@Body() dto: AuthDto) {
         const oldUser = await this.authService.findUser(dto.login);
         if (oldUser) {

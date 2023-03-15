@@ -43,8 +43,11 @@ export class AuthService {
 
     async login(email: string) {
         const payload = {email};
+        const user = await this.findUser(email);
         return {
-            access_token: await this.jwtService.signAsync(payload)
+            access_token: await this.jwtService.signAsync(payload),
+            login: user.email,
+            _id: user._id
         }
     }
 }
