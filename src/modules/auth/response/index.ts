@@ -11,5 +11,5 @@ export class AuthUserResponse {
     email: string;
 
     @IsString()
-    _id: string;
+    id: string;
 }

@@ -21,19 +21,30 @@ export class AuthService {
     ) {
     }
 
-    async createUser(dto: AuthDto): Promise<User> {
+    async createUser(dto: AuthDto): Promise<AuthUserResponse> {
         const existUser = await this.findUserByEmail(dto.email);
         if (existUser) {
             throw new BadRequestException(AppError.ALREADY_REGISTERED);
         }
         const salt = await genSalt(10);
-        const newUser = new this.userModel({
-            _id: v4(),
+        const newUser = await new this.userModel({
+            // _id: v4(),
             email: dto.email,
             passwordHash: await hash(dto.password, salt),
             createdAt: new Date()
-        });
-        return newUser.save();
+        }).save();
+        const accessToken = await this.tokenService.generateAccessToken(newUser._id);
+        const refreshToken = await this.tokenService.generateRefreshToken(newUser._id);
+        await this.tokenService.saveRefreshToken(newUser._id, refreshToken);
+
+        return {
+            access_token: accessToken,
+            refresh_token: refreshToken,
+            email: dto.email,
+            id: newUser._id
+        }
+        // const userDto = new AuthDto(newUser);
+        // await newUser.save();
     }
 
     async findUserByEmail(email: string): Promise<User> {
@@ -63,10 +74,10 @@ export class AuthService {
             throw new UnauthorizedException(AppError.WRONG_PASSWORD_OR_LOGIN);
         }
         return {
-            access_token: await this.tokenService.generateAccessToken(email),
-            refresh_token: await this.tokenService.generateRefreshToken(email),
+            access_token: await this.tokenService.generateAccessToken(user.id),
+            refresh_token: await this.tokenService.generateRefreshToken(user.id),
             email: user.email,
-            _id: user._id
+            id: user.id
         }
     }
 
@@ -80,10 +91,10 @@ export class AuthService {
         }
         const user = await this.findUserByEmail(email);
         return {
-            access_token: await this.tokenService.generateAccessToken(email),
-            refresh_token: await this.tokenService.generateRefreshToken(email),
+            access_token: await this.tokenService.generateAccessToken(user.id),
+            refresh_token: await this.tokenService.generateRefreshToken(user.id),
             email: user.email,
-            _id: user._id
+            _id: user.id
         }
     }
 }
