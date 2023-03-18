@@ -2,10 +2,10 @@ import {IsString} from 'class-validator';
 
 export class AuthUserResponse {
     @IsString()
-    access_token: string;
+    accessToken: string;
 
     @IsString()
-    refresh_token: string;
+    refreshToken: string;
 
     @IsString()
     email: string;

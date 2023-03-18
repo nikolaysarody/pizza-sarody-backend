@@ -4,6 +4,7 @@ import {ConfigService} from '@nestjs/config';
 import {InjectModel} from '@nestjs/mongoose';
 import {Model} from 'mongoose';
 import {Token, TokenDocument} from './schemas/token.schema';
+import {AuthUserResponse} from '../auth/response';
 // import {hash} from 'bcryptjs';
 
 @Injectable()
@@ -58,5 +59,10 @@ export class TokenService {
         } catch (e) {
             return null;
         }
+    }
+
+    async removeToken(refreshToken) {
+        const tokenData = await this.tokenModel.deleteOne({refreshToken});
+        return tokenData;
     }
 }

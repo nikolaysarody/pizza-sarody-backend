@@ -27,10 +27,15 @@ export class AuthController {
         return this.authService.login({email, password});
     }
 
+    @Post('logout')
+    async logout(@Body() refreshToken: string) {
+        return this.authService.logout(refreshToken);
+    }
+
     @UsePipes(new ValidationPipe())
     @Post('refresh')
-    async refresh(@Body() {refresh_token, email}: AuthUserResponse) {
+    async refresh(@Body() {refreshToken, email}: AuthUserResponse) {
         // const {email} = await this.authService.validateUser(email, password);
-        return this.authService.refresh(refresh_token, email);
+        return this.authService.refresh(refreshToken, email);
     }
 }

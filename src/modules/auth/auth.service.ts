@@ -38,8 +38,8 @@ export class AuthService {
         await this.tokenService.saveRefreshToken(newUser._id, refreshToken);
 
         return {
-            access_token: accessToken,
-            refresh_token: refreshToken,
+            accessToken,
+            refreshToken,
             email: dto.email,
             id: newUser._id
         }
@@ -73,15 +73,23 @@ export class AuthService {
         if (!validatePassword) {
             throw new UnauthorizedException(AppError.WRONG_PASSWORD_OR_LOGIN);
         }
+        const accessToken = await this.tokenService.generateAccessToken(user._id);
+        const refreshToken = await this.tokenService.generateRefreshToken(user._id);
+        await this.tokenService.saveRefreshToken(user._id, refreshToken);
         return {
-            access_token: await this.tokenService.generateAccessToken(user.id),
-            refresh_token: await this.tokenService.generateRefreshToken(user.id),
+            accessToken,
+            refreshToken,
             email: user.email,
-            id: user.id
+            id: user._id
         }
     }
 
-    async refresh(token, email) {
+    async logout(refreshToken: string) {
+        const token = await this.tokenService.removeToken(refreshToken);
+        return token;
+    }
+
+    async refresh(token, email): Promise<AuthUserResponse> {
         if (!token) {
             throw new UnauthorizedException();
         }
@@ -91,10 +99,10 @@ export class AuthService {
         }
         const user = await this.findUserByEmail(email);
         return {
-            access_token: await this.tokenService.generateAccessToken(user.id),
-            refresh_token: await this.tokenService.generateRefreshToken(user.id),
+            accessToken: await this.tokenService.generateAccessToken(user._id),
+            refreshToken: await this.tokenService.generateRefreshToken(user._id),
             email: user.email,
-            _id: user.id
+            id: user._id
         }
     }
 }
