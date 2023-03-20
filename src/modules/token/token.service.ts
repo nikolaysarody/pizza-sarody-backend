@@ -15,16 +15,16 @@ export class TokenService {
     ) {
     }
 
-    async generateAccessToken(id: string): Promise<string> {
-        const payload = {id};
+    async generateAccessToken(_id: string): Promise<string> {
+        const payload = {_id};
         return await this.jwtService.signAsync(payload, {
             secret: this.configService.get('JWT_ACCESS_SECRET'),
             expiresIn: this.configService.get('EXPIRE_ACCESS')
         });
     }
 
-    async generateRefreshToken(id: string): Promise<string> {
-        const payload = {id};
+    async generateRefreshToken(_id: string): Promise<string> {
+        const payload = {_id};
         return await this.jwtService.signAsync(payload, {
             secret: this.configService.get('JWT_REFRESH_SECRET'),
             expiresIn: this.configService.get('EXPIRE_REFRESH')
