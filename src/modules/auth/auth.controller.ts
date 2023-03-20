@@ -3,6 +3,7 @@ import {AuthDto} from './dto/auth.dto';
 import {AuthService} from './auth.service';
 // import {AppError} from '../../common/errors';
 import {AuthUserResponse} from './response';
+import {TokenDto} from '../token/dto/token.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -12,10 +13,6 @@ export class AuthController {
     @UsePipes(new ValidationPipe())
     @Post('registration')
     async register(@Body() dto: AuthDto) {
-        // const oldUser = await this.authService.findUserByEmail(dto.login);
-        // if (oldUser) {
-        //     throw new BadRequestException(AppError.ALREADY_REGISTERED);
-        // }
         return this.authService.createUser(dto);
     }
 
@@ -23,19 +20,17 @@ export class AuthController {
     @HttpCode(200)
     @Post('login')
     async login(@Body() {email, password}: AuthDto) {
-        // const {email} = await this.authService.validateUser(email, password);
         return this.authService.login({email, password});
     }
 
     @Post('logout')
-    async logout(@Body() refreshToken: string) {
+    async logout(@Body() {refreshToken}: TokenDto) {
         return this.authService.logout(refreshToken);
     }
 
     @UsePipes(new ValidationPipe())
     @Post('refresh')
     async refresh(@Body() {refreshToken, email}: AuthUserResponse) {
-        // const {email} = await this.authService.validateUser(email, password);
         return this.authService.refresh(refreshToken, email);
     }
 }

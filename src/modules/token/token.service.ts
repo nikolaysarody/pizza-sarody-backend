@@ -4,8 +4,7 @@ import {ConfigService} from '@nestjs/config';
 import {InjectModel} from '@nestjs/mongoose';
 import {Model} from 'mongoose';
 import {Token, TokenDocument} from './schemas/token.schema';
-import {AuthUserResponse} from '../auth/response';
-// import {hash} from 'bcryptjs';
+import {TokenResponse} from './response';
 
 @Injectable()
 export class TokenService {
@@ -16,7 +15,7 @@ export class TokenService {
     ) {
     }
 
-    async generateAccessToken(id: string) {
+    async generateAccessToken(id: string): Promise<string> {
         const payload = {id};
         return await this.jwtService.signAsync(payload, {
             secret: this.configService.get('JWT_ACCESS_SECRET'),
@@ -24,7 +23,7 @@ export class TokenService {
         });
     }
 
-    async generateRefreshToken(id: string) {
+    async generateRefreshToken(id: string): Promise<string> {
         const payload = {id};
         return await this.jwtService.signAsync(payload, {
             secret: this.configService.get('JWT_REFRESH_SECRET'),
@@ -33,7 +32,7 @@ export class TokenService {
     }
 
     async saveRefreshToken(id: string, refreshToken: string) {
-        const tokenData = await this.tokenModel.findOne({user: id});
+        const tokenData = await this.tokenModel.findOne({user: id}).exec();
         if (tokenData) {
             tokenData.refresh_token = refreshToken;
             return tokenData.save();
@@ -45,7 +44,7 @@ export class TokenService {
         return await token.save();
     }
 
-    async validateAccessToken(token: string) {
+    async validateAccessToken(token: string): Promise<TokenResponse> {
         try {
             return await this.jwtService.verifyAsync(token, {secret: this.configService.get('JWT_ACCESS_SECRET')});
         } catch (e) {
@@ -53,7 +52,7 @@ export class TokenService {
         }
     }
 
-    async validateRefreshToken(token: string) {
+    async validateRefreshToken(token: string): Promise<TokenResponse> {
         try {
             return await this.jwtService.verifyAsync(token, {secret: this.configService.get('JWT_REFRESH_SECRET')});
         } catch (e) {
@@ -62,7 +61,10 @@ export class TokenService {
     }
 
     async removeToken(refreshToken) {
-        const tokenData = await this.tokenModel.deleteOne({refreshToken});
-        return tokenData;
+        return await this.tokenModel.deleteOne({refresh_token: refreshToken}).exec();
+    }
+
+    async findToken(refreshToken) {
+        return await this.tokenModel.findOne({refresh_token: refreshToken}).exec();
     }
 }

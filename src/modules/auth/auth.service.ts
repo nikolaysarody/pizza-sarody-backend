@@ -9,7 +9,6 @@ import {TokenService} from '../token/token.service';
 import {ConfigService} from '@nestjs/config';
 import {AppError} from '../../common/errors';
 import {AuthUserResponse} from './response';
-import {v4} from 'uuid';
 
 @Injectable()
 export class AuthService {
@@ -43,8 +42,6 @@ export class AuthService {
             email: dto.email,
             id: newUser._id
         }
-        // const userDto = new AuthDto(newUser);
-        // await newUser.save();
     }
 
     async findUserByEmail(email: string): Promise<User> {
@@ -64,7 +61,6 @@ export class AuthService {
     }
 
     async login({email, password}: AuthDto): Promise<AuthUserResponse> {
-        // const payload = {email};
         const user = await this.findUserByEmail(email);
         if (!user) {
             throw new UnauthorizedException(AppError.WRONG_PASSWORD_OR_LOGIN);
@@ -85,22 +81,25 @@ export class AuthService {
     }
 
     async logout(refreshToken: string) {
-        const token = await this.tokenService.removeToken(refreshToken);
-        return token;
+        return await this.tokenService.removeToken(refreshToken);
     }
 
     async refresh(token, email): Promise<AuthUserResponse> {
         if (!token) {
             throw new UnauthorizedException();
         }
-        const userData = this.tokenService.validateRefreshToken(token);
-        if (!userData) {
+        const userData = await this.tokenService.validateRefreshToken(token);
+        const tokenFromDb = await this.tokenService.findToken(token);
+        if (!userData || !tokenFromDb) {
             throw new UnauthorizedException();
         }
         const user = await this.findUserByEmail(email);
+        const accessToken = await this.tokenService.generateAccessToken(user._id);
+        const refreshToken = await this.tokenService.generateRefreshToken(user._id);
+        await this.tokenService.saveRefreshToken(user._id, refreshToken);
         return {
-            accessToken: await this.tokenService.generateAccessToken(user._id),
-            refreshToken: await this.tokenService.generateRefreshToken(user._id),
+            accessToken,
+            refreshToken,
             email: user.email,
             id: user._id
         }
