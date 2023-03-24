@@ -84,7 +84,7 @@ export class AuthService {
         return await this.tokenService.removeToken(refreshToken);
     }
 
-    async refresh(token, email): Promise<AuthUserResponse> {
+    async refresh(token: string, email: string): Promise<AuthUserResponse> {
         if (!token) {
             throw new UnauthorizedException();
         }
