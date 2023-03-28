@@ -1,6 +1,4 @@
-import {JwtService} from '@nestjs/jwt';
 import {BadRequestException, Injectable, UnauthorizedException} from '@nestjs/common';
-import {ConfigService} from '@nestjs/config';
 import {InjectModel} from '@nestjs/mongoose';
 import {Model} from 'mongoose';
 import {User, UserDocument} from './schemas/user.schema';
@@ -15,7 +13,6 @@ export class UserService {
     constructor(
         @InjectModel(User.name) private userModel: Model<UserDocument>,
         private readonly tokenService: TokenService
-        // private readonly configService: ConfigService
     ) {
     }
 
@@ -26,13 +23,10 @@ export class UserService {
         }
         const salt = await genSalt(10);
         const newUser = await new this.userModel({
-            // _id: v4(),
             email: dto.email,
             passwordHash: await hash(dto.password, salt),
             createdAt: new Date()
-        });
-        console.log(newUser);
-        newUser.save();
+        }).save();
         const accessToken = await this.tokenService.generateAccessToken(newUser._id);
         const refreshToken = await this.tokenService.generateRefreshToken(newUser._id);
         await this.tokenService.saveRefreshToken(newUser._id, refreshToken);
