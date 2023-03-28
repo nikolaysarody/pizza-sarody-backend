@@ -8,6 +8,7 @@ import {PizzaModule} from './modules/pizza/pizza.module';
 import {ActionModule} from './modules/action/action.module';
 import {ConfigModule} from "@nestjs/config";
 import {TokenModule} from './modules/token/token.module';
+import {UserModule} from './modules/user/user.module';
 
 @Module({
     imports: [
@@ -18,7 +19,8 @@ import {TokenModule} from './modules/token/token.module';
         AuthModule,
         PizzaModule,
         ActionModule,
-        TokenModule
+        TokenModule,
+        UserModule
     ],
     controllers: [AppController],
     providers: [AppService],

@@ -1,7 +1,7 @@
 import {Module} from '@nestjs/common';
 import {AuthService} from './auth.service';
 import {MongooseModule} from '@nestjs/mongoose';
-import {User, UserSchema} from './schemas/user.schema';
+import {User, UserSchema} from '../user/schemas/user.schema';
 import {AuthController} from './auth.controller';
 import {JwtModule} from '@nestjs/jwt';
 import {ConfigModule, ConfigService} from '@nestjs/config';
@@ -9,6 +9,7 @@ import {getJWTConfig} from '../../configs/jwt.config';
 import {PassportModule} from '@nestjs/passport';
 import {JwtStrategy} from '../../strategies/jwt.strategy';
 import {TokenModule} from '../token/token.module';
+import {UserModule} from '../user/user.module';
 
 @Module({
     providers: [AuthService, JwtStrategy],
@@ -24,7 +25,8 @@ import {TokenModule} from '../token/token.module';
         }),
         PassportModule,
         ConfigModule,
-        TokenModule
+        TokenModule,
+        UserModule
     ]
 })
 export class AuthModule {

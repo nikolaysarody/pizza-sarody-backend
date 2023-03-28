@@ -4,10 +4,14 @@ import {AuthService} from './auth.service';
 // import {AppError} from '../../common/errors';
 import {AuthUserResponse} from './response';
 import {TokenDto} from '../token/dto/token.dto';
+import {UserService} from '../user/user.service';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService) {
+    constructor(
+        private readonly authService: AuthService,
+        private readonly userService: UserService,
+    ) {
     }
 
     @UsePipes(new ValidationPipe())
