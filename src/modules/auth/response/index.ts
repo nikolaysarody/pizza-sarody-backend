@@ -10,6 +10,6 @@ export class AuthUserResponse {
     @IsString()
     email: string;
 
-    @IsString()
-    id: string;
+    // @IsString()
+    // id: string;
 }

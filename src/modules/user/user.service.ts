@@ -35,7 +35,7 @@ export class UserService {
             accessToken,
             refreshToken,
             email: dto.email,
-            id: newUser._id
+            // id: newUser._id
         }
     }
 

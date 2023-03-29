@@ -33,7 +33,7 @@ export class AuthService {
             accessToken,
             refreshToken,
             email: user.email,
-            id: user.id
+            // id: user.id
         }
     }
 
@@ -58,7 +58,7 @@ export class AuthService {
             accessToken,
             refreshToken,
             email: user.email,
-            id: user.id
+            // id: user.id
         }
     }
 }
