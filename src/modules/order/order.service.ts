@@ -1,6 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
-import mongoose, {Model} from 'mongoose';
+import {Model} from 'mongoose';
 import {Order, OrderDocument} from './schemas/order.schema';
 import {IOrder} from './models/order.models';
 import {OrderDto} from './dto/order.dto';
