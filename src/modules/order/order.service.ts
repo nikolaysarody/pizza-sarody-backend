@@ -23,7 +23,7 @@ export class OrderService {
     async addNewOrder(dto: OrderDto): Promise<IOrder> {
         const userOrders = await this.getUserOrders(dto.userId);
         let orderNumber = this.generateOrderNumber();
-        while (!userOrders.some(item => item.orderNumber === orderNumber)) {
+        while (userOrders.some(item => item.orderNumber === orderNumber)) {
             orderNumber = this.generateOrderNumber();
         }
         return await new this.orderModel({

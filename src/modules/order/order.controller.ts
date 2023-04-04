@@ -24,7 +24,7 @@ export class OrderController {
     // }
 
     @UsePipes(new ValidationPipe())
-    @Get()
+    @Post()
     async getAllOrders(@Body() {userId}) {
         return this.orderService.getUserOrders(userId);
     }
