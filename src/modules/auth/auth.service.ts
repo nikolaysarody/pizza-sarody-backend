@@ -26,14 +26,14 @@ export class AuthService {
         if (!validatePassword) {
             throw new UnauthorizedException(AppError.WRONG_PASSWORD_OR_LOGIN);
         }
-        const accessToken = await this.tokenService.generateAccessToken(user.id);
-        const refreshToken = await this.tokenService.generateRefreshToken(user.id);
-        await this.tokenService.saveRefreshToken(user.id, refreshToken);
+        const accessToken = await this.tokenService.generateAccessToken(user._id);
+        const refreshToken = await this.tokenService.generateRefreshToken(user._id);
+        await this.tokenService.saveRefreshToken(user._id, refreshToken);
         return {
             accessToken,
             refreshToken,
             email: user.email,
-            // id: user.id
+            id: user._id
         }
     }
 
@@ -51,14 +51,14 @@ export class AuthService {
             throw new UnauthorizedException();
         }
         const user = await this.userService.findUserByEmail(email);
-        const accessToken = await this.tokenService.generateAccessToken(user.id);
-        const refreshToken = await this.tokenService.generateRefreshToken(user.id);
-        await this.tokenService.saveRefreshToken(user.id, refreshToken);
+        const accessToken = await this.tokenService.generateAccessToken(user._id);
+        const refreshToken = await this.tokenService.generateRefreshToken(user._id);
+        await this.tokenService.saveRefreshToken(user._id, refreshToken);
         return {
             accessToken,
             refreshToken,
             email: user.email,
-            // id: user.id
+            id: user._id
         }
     }
 }

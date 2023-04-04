@@ -10,6 +10,14 @@ export class AuthUserResponse {
     @IsString()
     email: string;
 
-    // @IsString()
-    // id: string;
+    @IsString()
+    id: string;
+}
+
+export class AuthRefreshResponse {
+    @IsString()
+    refreshToken: string;
+
+    @IsString()
+    email: string;
 }

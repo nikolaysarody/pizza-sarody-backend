@@ -44,14 +44,6 @@ export class TokenService {
         return await token.save();
     }
 
-    // async validateAccessToken(token: string): Promise<TokenResponse> {
-    //     try {
-    //         return await this.jwtService.verifyAsync(token, {secret: this.configService.get('JWT_ACCESS_SECRET')});
-    //     } catch (e) {
-    //         return null;
-    //     }
-    // }
-
     async validateRefreshToken(token: string): Promise<TokenResponse> {
         try {
             return await this.jwtService.verifyAsync(token, {secret: this.configService.get('JWT_REFRESH_SECRET')});

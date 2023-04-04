@@ -2,7 +2,7 @@ import {Body, Controller, HttpCode, Post, UsePipes, ValidationPipe} from '@nestj
 import {AuthDto} from './dto/auth.dto';
 import {AuthService} from './auth.service';
 // import {AppError} from '../../common/errors';
-import {AuthUserResponse} from './response';
+import {AuthRefreshResponse, AuthUserResponse} from './response';
 import {TokenDto} from '../token/dto/token.dto';
 import {UserService} from '../user/user.service';
 
@@ -34,7 +34,7 @@ export class AuthController {
 
     @UsePipes(new ValidationPipe())
     @Post('refresh')
-    async refresh(@Body() {refreshToken, email}: AuthUserResponse) {
+    async refresh(@Body() {refreshToken, email}: AuthRefreshResponse) {
         return this.authService.refresh(refreshToken, email);
     }
 }

@@ -30,12 +30,11 @@ export class UserService {
         const accessToken = await this.tokenService.generateAccessToken(newUser._id);
         const refreshToken = await this.tokenService.generateRefreshToken(newUser._id);
         await this.tokenService.saveRefreshToken(newUser._id, refreshToken);
-
         return {
             accessToken,
             refreshToken,
             email: dto.email,
-            // id: newUser._id
+            id: newUser._id
         }
     }
 
