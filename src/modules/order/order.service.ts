@@ -2,8 +2,8 @@ import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {Model} from 'mongoose';
 import {Order, OrderDocument} from './schemas/order.schema';
-import {IOrder} from './models/order.models';
-import {OrderDto} from './dto/order.dto';
+import {IOrder, OrderStatus} from './models/order.models';
+import {OrderCancelDto, OrderDto} from './dto/order.dto';
 
 @Injectable()
 export class OrderService {
@@ -36,5 +36,9 @@ export class OrderService {
             pizzas: dto.pizzas,
             createdAt: new Date()
         }).save();
+    }
+
+    async cancelOrder({userId, orderNumber}: OrderCancelDto) {
+        return await this.orderModel.findOneAndUpdate({userId, orderNumber}, {orderStatus: OrderStatus.Canceled}).exec();
     }
 }

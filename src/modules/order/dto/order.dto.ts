@@ -20,6 +20,12 @@ export class OrderDto {
 
     @IsArray()
     pizzas: IPizza[];
+}
 
+export class OrderCancelDto {
+    @IsString()
+    userId: string;
 
+    @IsNumber()
+    orderNumber: number;
 }

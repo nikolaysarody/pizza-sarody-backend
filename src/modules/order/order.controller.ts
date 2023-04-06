@@ -1,5 +1,5 @@
-import {Body, Controller, Get, Post, UseGuards, UsePipes, ValidationPipe} from '@nestjs/common';
-import {OrderDto} from './dto/order.dto';
+import {Body, Controller, Get, Patch, Post, UseGuards, UsePipes, ValidationPipe} from '@nestjs/common';
+import {OrderCancelDto, OrderDto} from './dto/order.dto';
 import {OrderService} from './order.service';
 import {JwtAuthGuard} from '../../guards/jwt.guard';
 
@@ -10,19 +10,20 @@ export class OrderController {
     ) {
     }
 
-    // @UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @UsePipes(new ValidationPipe())
     @Post('add')
     async addNewOrder(@Body() dto: OrderDto) {
         return this.orderService.addNewOrder(dto);
     }
 
-    // @UsePipes(new ValidationPipe())
-    // @Get('get/:id')
-    // async getOrderById(@Body() dto: OrderDto) {
-    //     // return this.userService.createUser(dto);
-    // }
+    @UsePipes(new ValidationPipe())
+    @Patch('cancel')
+    async getOrderById(@Body() dto: OrderCancelDto) {
+        return this.orderService.cancelOrder(dto);
+    }
 
+    @UseGuards(JwtAuthGuard)
     @UsePipes(new ValidationPipe())
     @Post()
     async getAllOrders(@Body() {userId}) {
