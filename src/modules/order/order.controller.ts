@@ -29,4 +29,11 @@ export class OrderController {
     async getAllOrders(@Body() {userId}) {
         return this.orderService.getUserOrders(userId);
     }
+
+    @UseGuards(JwtAuthGuard)
+    @UsePipes(new ValidationPipe())
+    @Post('delete')
+    async deleteOrder(@Body() dto: OrderCancelDto) {
+        return this.orderService.deleteOrder(dto);
+    }
 }

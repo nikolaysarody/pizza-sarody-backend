@@ -41,4 +41,8 @@ export class OrderService {
     async cancelOrder({userId, orderNumber}: OrderCancelDto) {
         return await this.orderModel.findOneAndUpdate({userId, orderNumber}, {orderStatus: OrderStatus.Canceled}).exec();
     }
+
+    async deleteOrder({userId, orderNumber}: OrderCancelDto) {
+        return await this.orderModel.findOneAndDelete({userId, orderNumber}).exec();
+    }
 }
