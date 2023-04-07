@@ -3,8 +3,8 @@ import {OrderPaymentOption, OrderPaymentStatus, OrderStatus} from '../models/ord
 import {IPizza} from '../../pizza/models/pizza.models';
 
 export class OrderDto {
-    @IsString()
-    userId: string;
+    // @IsString()
+    // userId: string;
 
     @IsEnum(OrderPaymentStatus)
     paymentStatus: OrderPaymentStatus;
@@ -20,12 +20,4 @@ export class OrderDto {
 
     @IsArray()
     pizzas: IPizza[];
-}
-
-export class OrderCancelDto {
-    @IsString()
-    userId: string;
-
-    @IsNumber()
-    orderNumber: number;
 }

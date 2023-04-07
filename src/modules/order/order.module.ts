@@ -3,12 +3,12 @@ import {MongooseModule} from "@nestjs/mongoose";
 import {OrderSchema, Order} from './schemas/order.schema';
 import {OrderService} from './order.service';
 import {OrderController} from './order.controller';
-import {JwtModule} from '@nestjs/jwt';
+import {JwtModule, JwtService} from '@nestjs/jwt';
 import {ConfigModule, ConfigService} from '@nestjs/config';
 import {getJWTConfig} from '../../configs/jwt.config';
 
 @Module({
-    providers: [OrderService],
+    providers: [OrderService, JwtService],
     controllers: [OrderController],
     imports: [
         MongooseModule.forFeature([

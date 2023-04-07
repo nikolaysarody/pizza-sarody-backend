@@ -29,3 +29,9 @@ export interface IOrder {
     cost: number
     pizzas: IPizza[]
 }
+
+export interface JwtPayload {
+    _id: string;
+    iat: number;
+    exp: number
+}
