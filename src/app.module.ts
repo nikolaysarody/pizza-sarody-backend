@@ -10,6 +10,7 @@ import {ConfigModule} from "@nestjs/config";
 import {TokenModule} from './modules/token/token.module';
 import {UserModule} from './modules/user/user.module';
 import {OrderModule} from './modules/order/order.module';
+import {AddressModule} from './modules/address/address.module';
 
 @Module({
     imports: [
@@ -22,7 +23,8 @@ import {OrderModule} from './modules/order/order.module';
         ActionModule,
         TokenModule,
         UserModule,
-        OrderModule
+        OrderModule,
+        AddressModule
     ],
     controllers: [AppController],
     providers: [AppService],
