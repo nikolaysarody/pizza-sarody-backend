@@ -37,7 +37,7 @@ export class OrderService {
         }
         return new this.orderModel({
             userId: this.getUserId(token),
-            addressId: await this.addressService.getDefaultAddress(token),
+            address: await this.addressService.getDefaultAddress(token),
             orderNumber,
             ...dto,
             createdAt: new Date()

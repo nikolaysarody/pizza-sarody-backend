@@ -13,7 +13,7 @@ export class Order {
     userId: mongoose.Types.ObjectId;
 
     @Prop()
-    addressId: mongoose.Types.ObjectId;
+    address: mongoose.Types.ObjectId;
 
     @Prop()
     orderNumber: number;

@@ -23,7 +23,7 @@ export enum OrderPaymentOption {
 export interface IOrder {
     _id: mongoose.Types.ObjectId;
     orderNumber: number;
-    addressId: mongoose.Types.ObjectId;
+    address: mongoose.Types.ObjectId;
     userId: mongoose.Types.ObjectId;
     paymentStatus: OrderPaymentStatus,
     paymentOption: OrderPaymentOption,
