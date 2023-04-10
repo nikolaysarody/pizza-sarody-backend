@@ -31,11 +31,10 @@ export class AddressController {
         return this.addressService.deleteAddress(id, token);
     }
 
-    //
-    // @UsePipes(new ValidationPipe())
-    // @Patch('cancel')
-    // async getOrderById(@Body() dto: OrderCancelDto) {
-    //     return this.orderService.cancelOrder(dto);
-    // }
-    //
+    @UseGuards(JwtAuthGuard)
+    @UsePipes(new ValidationPipe())
+    @Post('set-default-address')
+    async setDefaultAddress(@Body() {id}: {id: string}, @Headers('authorization') token) {
+        return this.addressService.setDefaultAddress(id, token);
+    }
 }

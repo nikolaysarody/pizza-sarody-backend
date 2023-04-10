@@ -1,4 +1,4 @@
-import {HttpCode, Injectable} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {Model} from 'mongoose';
 import {Address, AddressDocument} from './schemas/address.schema';
@@ -6,7 +6,6 @@ import {AddressDto} from './dto/address.dto';
 import {JwtPayload} from '../order/models/order.models';
 import {JwtService} from '@nestjs/jwt';
 import {IAddress} from './models/address.models';
-import {ErrorHttpStatusCode} from '@nestjs/common/utils/http-error-by-code.util';
 
 @Injectable()
 export class AddressService {
@@ -21,7 +20,7 @@ export class AddressService {
         return res._id;
     }
 
-    async checkDefaultAddress(token) {
+    async checkDefaultAddress(token: string) {
         const addresses = await this.getUserAddresses(token);
         if (addresses.length === 1 || !addresses.some(item => item.byDefault === true) && addresses.length > 0) {
             return this.setDefaultAddress(addresses[0]._id, token);
@@ -50,6 +49,8 @@ export class AddressService {
     }
 
     async setDefaultAddress(id: string, token: string) {
-        return this.addressModel.findOneAndUpdate({userId: this.getUserId(token), _id: id}, {byDefault: true}).exec();
+        await this.addressModel.findOneAndUpdate({userId: this.getUserId(token), byDefault: true}, {byDefault: false}).exec();
+        await this.addressModel.findOneAndUpdate({userId: this.getUserId(token), _id: id}, {byDefault: true}).exec();
+        return this.getUserAddresses(token);
     }
 }
