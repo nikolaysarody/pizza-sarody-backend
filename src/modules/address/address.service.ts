@@ -20,6 +20,10 @@ export class AddressService {
         return res._id;
     }
 
+    async getDefaultAddress(token){
+        return this.addressModel.findOne({userId: this.getUserId(token), byDefault: true}).exec();
+    }
+
     async checkDefaultAddress(token: string) {
         const addresses = await this.getUserAddresses(token);
         if (addresses.length === 1 || !addresses.some(item => item.byDefault === true) && addresses.length > 0) {

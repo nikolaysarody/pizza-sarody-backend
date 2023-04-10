@@ -5,12 +5,14 @@ import {Order, OrderDocument} from './schemas/order.schema';
 import {IOrder, JwtPayload, OrderStatus} from './models/order.models';
 import {OrderDto} from './dto/order.dto';
 import {JwtService} from '@nestjs/jwt';
+import {AddressService} from '../address/address.service';
 
 @Injectable()
 export class OrderService {
     constructor(
         @InjectModel(Order.name) private orderModel: Model<OrderDocument>,
         private readonly jwtService: JwtService,
+        private readonly addressService: AddressService
     ) {
     }
 
@@ -33,7 +35,13 @@ export class OrderService {
         while (userOrders.some(item => item.orderNumber === orderNumber)) {
             orderNumber = this.generateOrderNumber();
         }
-        return new this.orderModel({userId: this.getUserId(token), orderNumber, ...dto, createdAt: new Date()}).save();
+        return new this.orderModel({
+            userId: this.getUserId(token),
+            addressId: await this.addressService.getDefaultAddress(token),
+            orderNumber,
+            ...dto,
+            createdAt: new Date()
+        }).save();
     }
 
     async cancelOrder(orderNumber: number, token: string) {
@@ -44,6 +52,9 @@ export class OrderService {
     }
 
     async deleteOrder(orderNumber: number, token: string) {
-        return this.orderModel.findOneAndDelete({userId: this.getUserId(token), orderNumber}).exec();
+        return this.orderModel.findOneAndDelete({
+            userId: this.getUserId(token),
+            orderNumber
+        }).exec();
     }
 }

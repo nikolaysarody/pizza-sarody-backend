@@ -10,7 +10,10 @@ export class Order {
     _id: mongoose.Types.ObjectId;
 
     @Prop()
-    userId: string;
+    userId: mongoose.Types.ObjectId;
+
+    @Prop()
+    addressId: mongoose.Types.ObjectId;
 
     @Prop()
     orderNumber: number;

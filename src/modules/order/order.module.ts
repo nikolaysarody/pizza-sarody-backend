@@ -3,9 +3,8 @@ import {MongooseModule} from "@nestjs/mongoose";
 import {OrderSchema, Order} from './schemas/order.schema';
 import {OrderService} from './order.service';
 import {OrderController} from './order.controller';
-import {JwtModule, JwtService} from '@nestjs/jwt';
-import {ConfigModule, ConfigService} from '@nestjs/config';
-import {getJWTConfig} from '../../configs/jwt.config';
+import {JwtService} from '@nestjs/jwt';
+import {AddressModule} from '../address/address.module';
 
 @Module({
     providers: [OrderService, JwtService],
@@ -13,7 +12,8 @@ import {getJWTConfig} from '../../configs/jwt.config';
     imports: [
         MongooseModule.forFeature([
             {name: Order.name, schema: OrderSchema}
-        ])
+        ]),
+        AddressModule
     ]
 })
 export class OrderModule {

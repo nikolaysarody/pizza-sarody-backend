@@ -8,6 +8,7 @@ import {JwtService} from '@nestjs/jwt';
 
 @Module({
     providers: [AddressService, JwtService],
+    exports: [AddressService],
     controllers: [AddressController],
     imports: [
         MongooseModule.forFeature([

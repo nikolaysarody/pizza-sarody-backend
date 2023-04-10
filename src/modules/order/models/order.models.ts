@@ -1,4 +1,5 @@
 import {IPizza} from '../../pizza/models/pizza.models';
+import mongoose from 'mongoose';
 
 export enum OrderPaymentStatus {
     Paid = 'Оплачен',
@@ -20,9 +21,10 @@ export enum OrderPaymentOption {
 }
 
 export interface IOrder {
-    _id: string;
+    _id: mongoose.Types.ObjectId;
     orderNumber: number;
-    userId: string;
+    addressId: mongoose.Types.ObjectId;
+    userId: mongoose.Types.ObjectId;
     paymentStatus: OrderPaymentStatus,
     paymentOption: OrderPaymentOption,
     orderStatus: OrderStatus,
