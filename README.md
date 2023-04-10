@@ -6,10 +6,9 @@
 1) Установите `Docker` - <https://www.docker.com/>.
 2) Запустите контейнер `mongo`.
 3) Установите `MongoDB Compass` - <https://www.mongodb.com/products/compass>.
-4) Откройте `MongoDB Compass`, в поле `URI` вставьте `mongodb://localhost:27017` и нажмите `Connect`.
-5) Создайте базу данных с именем `pizza`.
-6) Установите и запустите сервер.
-7) В появившихся коллекциях внутри `pizza` импортируйте данные из папки `src/db`.
+4) Установите и запустите сервер.
+5) Откройте `MongoDB Compass`, в поле `URI` вставьте `mongodb://localhost:27017` и нажмите `Connect`.
+6) В появившихся коллекциях внутри `pizza` импортируйте данные из папки `src/db`.
 
 Инструкция по запуску сервера:
 1) Если у Вас не установлены `Node.js` и `git`, установите их - <https://nodejs.org/en/download/> и <https://git-scm.com/download/>.
