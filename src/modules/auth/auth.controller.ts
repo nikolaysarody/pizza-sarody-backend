@@ -1,9 +1,7 @@
-import {Body, Controller, HttpCode, Post, UsePipes, ValidationPipe} from '@nestjs/common';
+import {Body, Controller, Get, HttpCode, Post, Req, Res, UsePipes, ValidationPipe} from '@nestjs/common';
+import {Response, Request} from 'express';
 import {AuthDto} from './dto/auth.dto';
 import {AuthService} from './auth.service';
-// import {AppError} from '../../common/errors';
-import {AuthRefreshResponse, AuthUserResponse} from './response';
-import {TokenDto} from '../token/dto/token.dto';
 import {UserService} from '../user/user.service';
 
 @Controller('auth')
@@ -16,25 +14,35 @@ export class AuthController {
 
     @UsePipes(new ValidationPipe())
     @Post('registration')
-    async register(@Body() dto: AuthDto) {
-        return this.userService.createUser(dto);
+    async registration(@Body() {email, password}: AuthDto, @Res({passthrough: true}) res: Response) {
+        const userData = await this.userService.createUser({email, password});
+        res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
+        return userData;
     }
 
     @UsePipes(new ValidationPipe())
     @HttpCode(200)
     @Post('login')
-    async login(@Body() {email, password}: AuthDto) {
-        return this.authService.login({email, password});
+    async login(@Body() {email, password}: AuthDto, @Res({passthrough: true}) res: Response) {
+        const userData = await this.authService.login({email, password});
+        res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
+        return userData;
     }
 
-    @Post('logout')
-    async logout(@Body() {refreshToken}: TokenDto) {
-        return this.authService.logout(refreshToken);
+    @Get('logout')
+    async logout(@Req() req: Request, @Res({passthrough: true}) res: Response) {
+        const {refreshToken} = req.cookies;
+        const token = await this.authService.logout(refreshToken);
+        res.clearCookie('refreshToken');
+        return token;
     }
 
     @UsePipes(new ValidationPipe())
-    @Post('refresh')
-    async refresh(@Body() {refreshToken, email}: AuthRefreshResponse) {
-        return this.authService.refresh(refreshToken, email);
+    @Get('refresh')
+    async refresh(@Req() req: Request, @Res({passthrough: true}) res: Response) {
+        const {refreshToken} = req.cookies;
+        const userData = await this.authService.refresh(refreshToken);
+        res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
+        return userData;
     }
 }

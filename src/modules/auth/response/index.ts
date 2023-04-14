@@ -1,4 +1,5 @@
 import {IsString} from 'class-validator';
+import mongoose from 'mongoose';
 
 export class AuthUserResponse {
     @IsString()
@@ -11,7 +12,7 @@ export class AuthUserResponse {
     email: string;
 
     @IsString()
-    id: string;
+    id: mongoose.Types.ObjectId;
 }
 
 export class AuthRefreshResponse {

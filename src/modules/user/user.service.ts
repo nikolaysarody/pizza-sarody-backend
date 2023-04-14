@@ -16,15 +16,15 @@ export class UserService {
     ) {
     }
 
-    async createUser(dto: AuthDto): Promise<AuthUserResponse> {
-        const existUser = await this.findUserByEmail(dto.email);
+    async createUser({email, password}: AuthDto): Promise<AuthUserResponse> {
+        const existUser = await this.findUserByEmail(email);
         if (existUser) {
             throw new BadRequestException(AppError.ALREADY_REGISTERED);
         }
         const salt = await genSalt(10);
         const newUser = await new this.userModel({
-            email: dto.email,
-            passwordHash: await hash(dto.password, salt),
+            email,
+            passwordHash: await hash(password, salt),
             createdAt: new Date()
         }).save();
         const accessToken = await this.tokenService.generateAccessToken(newUser._id);
@@ -33,7 +33,7 @@ export class UserService {
         return {
             accessToken,
             refreshToken,
-            email: dto.email,
+            email,
             id: newUser._id
         }
     }

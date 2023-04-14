@@ -22,7 +22,7 @@ export class OrderService {
 
     getUserId(token: string): string {
         const res = this.jwtService.decode(token.split(' ')[1]) as JwtPayload;
-        return res._id;
+        return res.id;
     }
 
     async getUserOrders(token: string): Promise<IOrder[]> {

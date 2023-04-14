@@ -41,7 +41,7 @@ export class AuthService {
         return await this.tokenService.removeToken(refreshToken);
     }
 
-    async refresh(token: string, email: string): Promise<AuthUserResponse> {
+    async refresh(token: string): Promise<AuthUserResponse> {
         if (!token) {
             throw new UnauthorizedException();
         }
@@ -50,7 +50,7 @@ export class AuthService {
         if (!userData || !tokenFromDb) {
             throw new UnauthorizedException();
         }
-        const user = await this.userService.findUserByEmail(email);
+        const user = await this.userModel.findById(userData.id);
         const accessToken = await this.tokenService.generateAccessToken(user._id);
         const refreshToken = await this.tokenService.generateRefreshToken(user._id);
         await this.tokenService.saveRefreshToken(user._id, refreshToken);

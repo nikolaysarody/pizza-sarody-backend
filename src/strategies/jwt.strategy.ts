@@ -2,7 +2,7 @@ import {PassportStrategy} from '@nestjs/passport';
 import {ExtractJwt, Strategy} from 'passport-jwt';
 import {Injectable} from '@nestjs/common';
 import {ConfigService} from '@nestjs/config';
-import {User} from '../modules/user/schemas/user.schema';
+import mongoose from 'mongoose';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -14,7 +14,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         });
     }
 
-    async validate({_id}: Pick<User, '_id'>) {
-        return _id;
+    async validate({id}: {id: mongoose.Types.ObjectId}) {
+        return id;
     }
 }

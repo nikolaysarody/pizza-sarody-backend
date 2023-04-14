@@ -17,7 +17,7 @@ export class AddressService {
 
     getUserId(token: string): string {
         const res = this.jwtService.decode(token.split(' ')[1]) as JwtPayload;
-        return res._id;
+        return res.id;
     }
 
     async getDefaultAddress(token){
