@@ -33,6 +33,7 @@ export class AuthService {
             accessToken,
             refreshToken,
             email: user.email,
+            username: user.username,
             id: user._id
         }
     }
@@ -58,6 +59,7 @@ export class AuthService {
             accessToken,
             refreshToken,
             email: user.email,
+            username: user.username,
             id: user._id
         }
     }

@@ -5,6 +5,7 @@ import {OrderService} from './order.service';
 import {OrderController} from './order.controller';
 import {JwtService} from '@nestjs/jwt';
 import {AddressModule} from '../address/address.module';
+import {UserModule} from '../user/user.module';
 
 @Module({
     providers: [OrderService, JwtService],
@@ -13,7 +14,8 @@ import {AddressModule} from '../address/address.module';
         MongooseModule.forFeature([
             {name: Order.name, schema: OrderSchema}
         ]),
-        AddressModule
+        AddressModule,
+        UserModule
     ]
 })
 export class OrderModule {

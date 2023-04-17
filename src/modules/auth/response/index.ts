@@ -12,6 +12,9 @@ export class AuthUserResponse {
     email: string;
 
     @IsString()
+    username: string;
+
+    @IsString()
     id: mongoose.Types.ObjectId;
 }
 
