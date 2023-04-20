@@ -1,5 +1,5 @@
 import {Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
-import mongoose, {Document} from "mongoose";
+import {Document, Types} from "mongoose";
 import {OrderPaymentOption, OrderPaymentStatus, OrderStatus} from '../models/order.models';
 import {IPizza} from '../../pizza/models/pizza.models';
 
@@ -7,30 +7,30 @@ export type OrderDocument = Order & Document;
 
 @Schema()
 export class Order {
-    _id: mongoose.Types.ObjectId;
+    _id: Types.ObjectId;
 
-    @Prop()
-    userId: mongoose.Types.ObjectId;
+    @Prop({required: true})
+    userId: Types.ObjectId;
 
-    @Prop()
-    address: mongoose.Types.ObjectId;
+    @Prop({required: true})
+    address: Types.ObjectId;
 
-    @Prop()
+    @Prop({required: true})
     orderNumber: number;
 
-    @Prop()
+    @Prop({required: true})
     paymentStatus: OrderPaymentStatus;
 
-    @Prop()
+    @Prop({required: true})
     paymentOption: OrderPaymentOption;
 
-    @Prop()
+    @Prop({required: true})
     orderStatus: OrderStatus;
 
-    @Prop()
+    @Prop({required: true})
     cost: number;
 
-    @Prop()
+    @Prop({required: true})
     pizzas: IPizza[];
 
     @Prop()

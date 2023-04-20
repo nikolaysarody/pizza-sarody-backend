@@ -9,6 +9,7 @@ import {TokenService} from '../token/token.service';
 import {AppError} from '../../exceptions/api.errors';
 import {JwtPayload} from '../order/models/order.models';
 import {JwtService} from '@nestjs/jwt';
+import {Role} from '../../enums/role.enum';
 
 @Injectable()
 export class UserService {
@@ -25,10 +26,12 @@ export class UserService {
             throw new HttpException(AppError.ALREADY_REGISTERED, HttpStatus.BAD_REQUEST);
         }
         const salt = await genSalt(10);
+        const users = await this.userModel.findOne();
         const newUser = await new this.userModel({
             email,
             passwordHash: await hash(password, salt),
             username: email.split('@')[0],
+            roles: users ? [Role.User] : [Role.User, Role.Admin],
             createdAt: new Date()
         }).save();
         const accessToken = await this.tokenService.generateAccessToken(newUser._id);
@@ -45,6 +48,10 @@ export class UserService {
 
     async findUserByEmail(email: string): Promise<User> {
         return this.userModel.findOne({email}).exec();
+    }
+
+    async findUserById(id: string): Promise<User> {
+        return this.userModel.findById(id).exec();
     }
 
     async validateUser(email: string, password: string): Promise<Pick<User, 'email'>> {
@@ -66,7 +73,7 @@ export class UserService {
             throw new HttpException(AppError.SAME_USERNAME, HttpStatus.BAD_REQUEST);
         }
         if (uniqueUsername) {
-            throw new HttpException(AppError.USERNAME_NOT_UNIQUE, HttpStatus.BAD_REQUEST);
+            throw new HttpException(AppError.USERNAME_IS_NOT_UNIQUE, HttpStatus.BAD_REQUEST);
         }
         return this.userModel.findOneAndUpdate({_id: this.getUserId(token)}, {username});
     }
@@ -78,7 +85,7 @@ export class UserService {
             throw new HttpException(AppError.SAME_EMAIL, HttpStatus.BAD_REQUEST);
         }
         if (uniqueEmail) {
-            throw new HttpException(AppError.EMAIL_NOT_UNIQUE, HttpStatus.BAD_REQUEST);
+            throw new HttpException(AppError.EMAIL_IS_NOT_UNIQUE, HttpStatus.BAD_REQUEST);
         }
         return this.userModel.findOneAndUpdate({_id: this.getUserId(token)}, {email});
     }

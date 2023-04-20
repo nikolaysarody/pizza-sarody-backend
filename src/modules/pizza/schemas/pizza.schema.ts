@@ -1,23 +1,22 @@
 import {Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
-import {Document} from "mongoose";
+import {Document, Types} from 'mongoose';
 
 export type PizzaDocument = Pizza & Document;
 
 @Schema()
 export class Pizza {
-    @Prop()
-    _id: string;
+    _id: Types.ObjectId;
 
-    @Prop()
+    @Prop({required: true})
     title: string;
 
-    @Prop()
+    @Prop({required: true})
     description: string;
 
-    @Prop()
+    @Prop({required: true})
     img: string;
 
-    @Prop()
+    @Prop({required: true})
     price: number;
 }
 

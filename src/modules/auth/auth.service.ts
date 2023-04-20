@@ -19,6 +19,7 @@ export class AuthService {
 
     async login({email, password}: AuthDto): Promise<AuthUserResponse> {
         const user = await this.userService.findUserByEmail(email);
+
         if (!user) {
             throw new HttpException(AppError.WRONG_PASSWORD_OR_LOGIN, HttpStatus.BAD_REQUEST);
         }

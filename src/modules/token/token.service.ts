@@ -34,12 +34,12 @@ export class TokenService {
     async saveRefreshToken(id: mongoose.Types.ObjectId, refreshToken: string) {
         const tokenData = await this.tokenModel.findOne({user: id}).exec();
         if (tokenData) {
-            tokenData.refresh_token = refreshToken;
+            tokenData.refreshToken = refreshToken;
             return tokenData.save();
         }
         const token = new this.tokenModel({
             user: id,
-            refresh_token: refreshToken
+            refreshToken
         });
         return token.save();
     }
@@ -53,10 +53,10 @@ export class TokenService {
     }
 
     async removeToken(refreshToken) {
-        return this.tokenModel.deleteOne({refresh_token: refreshToken}).exec();
+        return this.tokenModel.deleteOne({refreshToken}).exec();
     }
 
     async findToken(refreshToken) {
-        return this.tokenModel.findOne({refresh_token: refreshToken}).exec();
+        return this.tokenModel.findOne({refreshToken}).exec();
     }
 }

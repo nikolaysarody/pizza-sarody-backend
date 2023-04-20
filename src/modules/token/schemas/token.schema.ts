@@ -10,7 +10,7 @@ export class Token {
     user: User
 
     @Prop({required: true})
-    refresh_token: string
+    refreshToken: string
 }
 
 export const TokenSchema = SchemaFactory.createForClass(Token);

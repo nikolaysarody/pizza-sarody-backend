@@ -1,12 +1,11 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
-import {Document} from 'mongoose';
+import {Document, Types} from 'mongoose';
 
 export type ActionDocument = Action & Document;
 
 @Schema()
 export class Action {
-    @Prop()
-    _id: string;
+    _id: Types.ObjectId;
 
     @Prop({unique: true, required: true})
     title: string;

@@ -1,8 +1,5 @@
 import {Module} from '@nestjs/common';
 import {MongooseModule} from "@nestjs/mongoose";
-import {AppController} from './app.controller';
-import {AppService} from './app.service';
-// import {AuthController} from './modules/auth/auth.controller';
 import {AuthModule} from './modules/auth/auth.module';
 import {PizzaModule} from './modules/pizza/pizza.module';
 import {ActionModule} from './modules/action/action.module';
@@ -11,6 +8,7 @@ import {TokenModule} from './modules/token/token.module';
 import {UserModule} from './modules/user/user.module';
 import {OrderModule} from './modules/order/order.module';
 import {AddressModule} from './modules/address/address.module';
+import {PromoModule} from './modules/promo/promo.module';
 
 @Module({
     imports: [
@@ -24,10 +22,9 @@ import {AddressModule} from './modules/address/address.module';
         TokenModule,
         UserModule,
         OrderModule,
-        AddressModule
-    ],
-    controllers: [AppController],
-    providers: [AppService],
+        AddressModule,
+        PromoModule
+    ]
 })
 export class AppModule {
 }
