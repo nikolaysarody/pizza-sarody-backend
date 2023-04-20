@@ -1,12 +1,10 @@
 [{
-  "_id": "dwqdqwd",
   "title": "Акция",
   "description": "Пепперони x2",
   "text": "Вводите промокод ПЕПЕ для выгодной покупки двух пепперони по цене одной.",
   "clickable": true,
   "img": "/images/Pizza/action_2.jpg"
 },{
-  "_id": "gegre",
   "title": "Новинка",
   "description": "Пицца Красный Тигр",
   "clickable": false,

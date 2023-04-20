@@ -1,119 +1,99 @@
 [{
-  "_id": "sdqdsfg",
   "title": "Пепперони",
   "description": "Сыр моцарелла, колбаса пепперони, перец чили, помидоры, орегано, базилик, чеснок",
   "price": 400,
   "img": "/images/Pizza/pizza_1.png"
 },{
-  "_id": "gregerf",
   "title": "Маргарита",
   "description": "Томатный соус, моцарелла и орегано",
   "price": 400,
   "img": "/images/Pizza/pizza_2.jpg"
 },{
-  "_id": "hrthrf",
   "title": "Маринара",
   "description": "Томатный соус, чеснок и базилик",
   "price": 400,
   "img": "/images/Pizza/pizza_3.jpg"
 },{
-  "_id": "fewgd",
   "title": "Четыре сезона",
   "description": "Томатный соус, моцарелла, пармезан, яйца, бекон",
   "price": 400,
   "img": "/images/Pizza/pizza_4.jpg"
 },{
-  "_id": "gefdwf",
   "title": "Карбонара",
   "description": "Томатный соус, моцарелла, пармезан, яйца, бекон",
   "price": 400,
   "img": "/images/Pizza/pizza_5.jpg"
 },{
-  "_id": "gegergfd",
   "title": "Морепродукты",
   "description": "Томатный соус и морепродукты",
   "price": 400,
   "img": "/images/Pizza/pizza_6.jpg"
 },{
-  "_id": "gregfdger",
   "title": "Четыре сыра",
   "description": "Томатный соус, моцарелла, пармезан, сыр горгонзола, артишоки и орегано",
   "price": 400,
   "img": "/images/Pizza/pizza_7.jpg"
 },{
-  "_id": "jytuhg",
   "title": "Крудо",
   "description": "Томатный соус, моцарелла и пармская ветчина",
   "price": 400,
   "img": "/images/Pizza/pizza_8.jpg"
 },{
-  "_id": "cgbedhtr",
   "title": "Неаполетано",
   "description": "Томатный соус, моцарелла, орегано, анчоусы",
   "price": 400,
   "img": "/images/Pizza/pizza_9.jpg"
 },{
-  "_id": "kyuhgtyrhj",
   "title": "По-апулийски",
   "description": "Томатный соус, моцарелла, орегано, лук",
   "price": 400,
   "img": "/images/Pizza/pizza_10.jpg"
 },{
-  "_id": "jngfjnthg",
   "title": "Монтанара",
   "description": "Томатный соус, моцарелла, грибы, пепперони и Страккино (мягкий сыр)",
   "price": 400,
   "img": "/images/Pizza/pizza_11.jpg"
 },{
-  "_id": "hgjthgjt",
   "title": "Эмилиана",
   "description": "Томатный соус, моцарелла, баклажаны, отварной картофель и колбаса",
   "price": 400,
   "img": "/images/Pizza/pizza_12.jpg"
 },{
-  "_id": "jhktghfrd",
   "title": "Римская",
   "description": "Томатный соус, моцарелла, анчоусы, каперсы и орегано",
   "price": 400,
   "img": "/images/Pizza/pizza_13.jpg"
 },{
-  "_id": "jghdhgd",
   "title": "Красный тигр",
   "description": "Сыр моцарелла, колбаса пепперони, аукцион, сабнавтика и щепотка тупняка",
   "price": 400,
   "img": "/images/Pizza/pizza_15.jpg"
 },{
-  "_id": "kjhgtdggh",
   "title": "Скьяччата",
   "description": "Оливковое масло и розмарин",
   "price": 400,
   "img": "/images/Pizza/pizza_1.png"
 },{
-  "_id": "hgfjtdhd",
   "title": "Прошутто",
   "description": "Томатный соус, моцарелла, ветчина, орегано",
   "price": 400,
   "img": "/images/Pizza/pizza_14.jpg"
 },{
-  "_id": "jryjhgkmk",
   "title": "Американо",
   "description": "Томатный соус, моцарелла, колбаса и картофель фри",
   "price": 400,
   "img": "/images/Pizza/pizza_1.png"
 },{
-  "_id": "jgfsertfgh",
   "title": "Прошутто и грибы",
   "description": "Томатный соус, моцарелла, ветчина, грибы",
   "price": 400,
   "img": "/images/Pizza/pizza_1.png"
 },{
-  "_id": "kljhgkjg",
   "title": "Папайя",
   "description": "Моцарелла, шпинат, сыр рикотта и пармезан",
   "price": 400,
   "img": "/images/Pizza/pizza_1.png"
 },{
-  "_id": "vcsfdghjghs",
   "title": "Сардиния",
   "description": "Томатный соус, моцарелла, сыр пекорино и острая салями",
   "price": 400,
