@@ -66,7 +66,7 @@ export class UserService {
         return {email: user.email};
     }
 
-    async changeUsername(username, token) {
+    async changeUsername(username: string, token: string): Promise<User> {
         const uniqueUsername = await this.userModel.findOne({username});
         const userData = await this.userModel.findById(this.getUserId(token));
         if (userData.username === username || !username) {
@@ -78,7 +78,7 @@ export class UserService {
         return this.userModel.findOneAndUpdate({_id: this.getUserId(token)}, {username});
     }
 
-    async changeEmail(email, token) {
+    async changeEmail(email: string, token: string): Promise<User> {
         const uniqueEmail = await this.userModel.findOne({email});
         const userData = await this.userModel.findById(this.getUserId(token));
         if (userData.email === email || !email) {
