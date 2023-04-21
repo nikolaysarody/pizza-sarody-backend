@@ -18,7 +18,7 @@ export class PromoController {
     }
 
     @Post('check')
-    async checkPromo(@Body() {promo}: { promo: string }) {
-        return this.promoService.checkPromo(promo);
+    async checkPromo(@Body() {title}: { title: string }) {
+        return this.promoService.checkPromo(title);
     }
 }
