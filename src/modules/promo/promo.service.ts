@@ -12,7 +12,7 @@ export class PromoService {
     ) {}
 
     async checkPromo(title: string) {
-        const res = await this.promoModel.findOne({title});
+        const res = await this.promoModel.findOne({title: title.toLowerCase()});
         if (!res) {
             throw new HttpException(AppError.PROMO_IS_NOT_CORRECT, HttpStatus.BAD_REQUEST);
         }
@@ -20,7 +20,7 @@ export class PromoService {
     }
 
     async addPromo(dto: PromoDto) {
-        const res = await this.promoModel.findOne({title: dto.title});
+        const res = await this.promoModel.findOne({title: dto.title.toLowerCase()});
         if (res) {
             throw new HttpException(AppError.PROMO_IS_EXISTS, HttpStatus.BAD_REQUEST);
         }
